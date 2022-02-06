@@ -54,9 +54,10 @@ const Card = styled.div`
   font-family: "PT Serif", serif;
 `;
 
-export const Papelera = () => {
+export const Inicio = () => {
   return (
     <>
+      <div>
       <Layout />
 
       <div>
@@ -99,6 +100,7 @@ export const Papelera = () => {
       </Card>
 
       <Footer/>
+      </div>
     </>
   );
 };

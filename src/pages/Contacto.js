@@ -1,12 +1,14 @@
 import React from "react";
 import { Layout } from "../components/Layout";
 import styled from "@emotion/styled";
+import Button from "@material-ui/core/Button";
+import Footer from "../components/Footer";
 
 const Titulo = styled.h4`
-  font-family: 'PT Serif';
+  font-family: "PT Serif";
 `;
 
-export const Nosotros = () => {
+export const Contacto = () => {
   return (
     <div>
       <Layout />
@@ -16,7 +18,8 @@ export const Nosotros = () => {
             <Titulo>Nuestros puntos de contacto:</Titulo>
             <div class="row mt-4 ">
               <h5 class="link-secondary text-decoration-none" href="#">
-                <ion-icon name="at-outline" size="large"></ion-icon> info@gmail.com
+                <ion-icon name="at-outline" size="large"></ion-icon>{" "}
+                info@gmail.com
               </h5>
               <h5 class="link-secondary text-decoration-none mr-4">
                 <ion-icon name="logo-instagram" size="large"></ion-icon>{" "}
@@ -67,11 +70,24 @@ export const Nosotros = () => {
                   id="exampleFormControlTextarea1"
                   rows="3"
                 ></textarea>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  disableElevation
+                  type="submit"
+                  className="u-full-width button-primary mt-4"
+                >
+                  Enviar consulta
+                </Button>
               </div>
+
             </form>
           </div>
         </div>
       </div>
+        
+      <Footer/>
     </div>
+    
   );
 };

@@ -1,4 +1,4 @@
-const bolsas = [
+const productos = [
     {
         id: 1,
         name: 'Rollo 10x25',
@@ -51,4 +51,4 @@ const bolsas = [
     },
 ];
 
-export default bolsas;
+export default productos;

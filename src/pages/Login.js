@@ -5,6 +5,18 @@ import './login.css';
 import { Alert } from 'reactstrap';
 import { NavLink } from 'react-router-dom';
 import { useHistory } from "react-router-dom";
+import styled from "@emotion/styled";
+
+
+const Titulo = styled.h2`
+  margin: 0 auto;
+  font-family: "Merriweather", serif;
+  @media (min-width: 768px) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+`;
 
 export const Login = () => {
 
@@ -76,13 +88,14 @@ export const Login = () => {
     }
 
     return (
-        <div>
-
+        <div className='login'>
+            
             <div className="form-usuario">
             {/* { alerta ? ( <div className={`alerta ${alerta.categoria}`}> {alerta.msg} </div> )  : null } */}
 
             <div className="contenedor-form sombra-dark">
-                <h1>Iniciar Sesión</h1>
+                
+                <Titulo className='mb-5'> Iniciar Sesión</Titulo>
                 {error ? <Alert color="danger"> Todos los campos son obligatorios </Alert> : null}
                 <form
                     onSubmit={onSubmit}
@@ -111,15 +124,16 @@ export const Login = () => {
                         />
                     </div>
                     
-                    <NavLink activeClassName="active" className="btn btn-outline-dark" to='./a' >ir a Inicio</NavLink>
-                    <NavLink activeClassName="active" className="btn btn-outline-dark" to='./registrarse' >Registrarse</NavLink>                  
+                    <NavLink activeClassName="active" className="btn btn-outline-dark mr-3" to='./a' >ir a Inicio</NavLink>
+                    <NavLink activeClassName="active" className="btn btn-outline-dark " to='./registrarse' >Registrarse</NavLink>                  
                     
-                    {usuarioLogeado ? <p>Usuario Registrado</p>:<p>Usuario No Registrado</p>}
+                    {usuarioLogeado ? <p className='mt-4'>Usuario Registrado</p>:<p className='mt-4'>Usuario No Registrado</p>}
 
                     <div className="campo-form">
-                        <input type="submit" className="btn btn-primario btn-block" value="Iniciar Sesión" />
+                        <input type="submit" className="btn btn-outline-primary btn-block" value="Iniciar Sesión" />
                     </div>
                 </form>
+                
             </div>
         </div>
         </div>

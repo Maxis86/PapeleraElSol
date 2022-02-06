@@ -5,6 +5,19 @@ import { NavLink } from 'react-router-dom';
 import './login.css';
 import { Error } from '../components/Error';
 import { useHistory } from "react-router-dom";
+import styled from "@emotion/styled";
+
+const Titulo = styled.h2`
+  margin: 0 auto;
+  font-family: "Merriweather", serif;
+  @media (min-width: 768px) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+`;
+
+
 
 export const Registrarse = () => {
 
@@ -73,13 +86,13 @@ export const Registrarse = () => {
 
 
     return (
-            <div>
+            <div className='login'>
 
                 <div className="form-usuario">
                 {/* { alerta ? ( <div className={`alerta ${alerta.categoria}`}> {alerta.msg} </div> )  : null } */}
 
                 <div className="contenedor-form sombra-dark">
-                    <h1>Registrarse</h1>
+                    <Titulo className='mb-5'>Registrarse</Titulo>
                     {error ? <Error mensaje="Todos los campos son obligatorios"/> : null}
                     <form
                         onSubmit={onSubmit}
@@ -121,16 +134,14 @@ export const Registrarse = () => {
                             />
                         </div>
 
-                        <NavLink activeClassName="active" className="btn btn-outline-dark" to='./a' >ir a Inicio</NavLink>
+                        <NavLink activeClassName="active" className="btn btn-outline-dark mr-3" to='./a' >ir a Inicio</NavLink>
                         <NavLink activeClassName="active" className="btn btn-outline-dark" to='./login' >Login</NavLink>                  
 
-                        <div className="campo-form">
-                            <input type="submit" className="btn btn-primario btn-block" value="Crear Cuenta" />
+                        <div className="campo-form mt-4">
+                            <input type="submit" className="btn btn-outline-primary btn-block" value="Crear Cuenta" />
                         </div>
                     </form>
-                    {/* <Link to={'/nueva-cuenta'} className="enlace-cuenta">
-                        Obtener Cuenta
-                    </Link> */}
+    
                 </div>
             </div>
         </div>

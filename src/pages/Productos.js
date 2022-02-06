@@ -23,7 +23,7 @@ const CarritoCss = styled.div`
   padding: 5px;
 `;
 
-export const Bolsas = () => {
+export const Productos = () => {
   const [productosStock, setProductoStock] = useState([]);
   
   const keyg = uuidv4();

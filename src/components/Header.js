@@ -32,7 +32,7 @@ const Titulo = styled.div`
 `;
 const Nav = styled.nav`
   display: flex;
-  justify-content: left;
+  /* justify-content: left; */
   
   @media (min-width: 768px) {
     
@@ -69,14 +69,12 @@ export const Header = () => {
         
         <Titulo>
           <Imagen/>
-          <h1></h1>
+        
           <EnlaceHome >
             Papelera el Sol
           </EnlaceHome>
          
           <Nav>
-            
-            
           
           { !usuario ? (
                         <>
