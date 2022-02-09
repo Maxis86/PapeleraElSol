@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useContext} from 'react'
 import firebase from 'firebase/app'
 import "firebase/auth";
 import './login.css';
@@ -6,7 +6,7 @@ import { Alert } from 'reactstrap';
 import { NavLink } from 'react-router-dom';
 import { useHistory } from "react-router-dom";
 import styled from "@emotion/styled";
-
+import AlertaContext from '../context/alertas/alertaContext'
 
 const Titulo = styled.h2`
   margin: 0 auto;
@@ -19,6 +19,9 @@ const Titulo = styled.h2`
 `;
 
 export const Login = () => {
+
+    const alertaContext = useContext (AlertaContext);
+    const {alerta, mostrarAlerta} = alertaContext;
 
     const history = useHistory();
     
@@ -48,7 +51,7 @@ export const Login = () => {
 
         // Validar que no haya campos vacios
         if(email.trim() === '' || password.trim() === '') {
-            // mostrarAlerta('Todos los campos son obligatorios', 'alerta-error');
+            mostrarAlerta('Los dos campos son obligatorios', 'alerta-error');
             setError(true);
             return;
         }
@@ -79,6 +82,9 @@ export const Login = () => {
         return history.push("/");
         })
         .catch((error) => {
+
+        mostrarAlerta("Error", "alerta-error");
+
         // const errorCode = error.code;
         // console.log(errorCode)
         // const errorMessage = error.message;
@@ -96,7 +102,12 @@ export const Login = () => {
             <div className="contenedor-form sombra-dark">
                 
                 <Titulo className='mb-5'> Iniciar Sesión</Titulo>
-                {error ? <Alert color="danger"> Todos los campos son obligatorios </Alert> : null}
+                {error ? (
+                    <div class="alert alert-danger" role="alert">
+                    {alerta.msg}
+                    </div>
+                ) : null}
+                
                 <form
                     onSubmit={onSubmit}
                 >

@@ -81,6 +81,8 @@ export const Header = () => {
                             <NavLink activeClassName="active" className="link-secondary nav-link" to='./registrarse'> Crear Cuenta</NavLink>
                             <NavLink activeClassName="active" className="link-secondary disabled nav-link" to='./login'>|</NavLink>
                             <NavLink activeClassName="active" className="link-secondary nav-link" to='./login'>Iniciar Sesión</NavLink>
+                            
+
                         </>
                     ) : (
                         <>
@@ -96,9 +98,12 @@ export const Header = () => {
                           
                         </>
             ) }
+            
             </Nav>
         </Titulo>
+        
       </Encabezado>
+      
     </>
   );
 };

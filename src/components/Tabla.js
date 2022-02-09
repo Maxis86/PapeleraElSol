@@ -8,6 +8,9 @@ import { Button, Table } from "reactstrap";
 
 function Tabla(props) {
     
+    console.log("props")
+    console.log(props)
+
     const datos = props.datos;
     const columnas = props.columnas;
 

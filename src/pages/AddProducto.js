@@ -1,14 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import firebase from "firebase/app";
 import "firebase/storage";
 
-import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
-import { agregarProducto } from "../helpers/ABMProductos";
 import { Layout } from "../components/Layout";
 import { v4 as uuidv4 } from "uuid";
 import Footer from "../components/Footer";
 import styled from "@emotion/styled";
+import ProductosContext from "../context/productos/productosContext";
+import AlertaContext from "../context/alertas/alertaContext";
 
 const General = styled.div`
   /* font-size: 100%; */
@@ -21,11 +21,16 @@ const General = styled.div`
   margin: 3rem;
 `;
 
-
-
 export const AddProducto = () => {
+  const productosContext = useContext(ProductosContext);
+  const { agregarProductoBD, obtenerProductos, productos } = productosContext;
+
+  const alertaContext = useContext(AlertaContext);
+  const { alerta, mostrarAlerta, ocultarAlerta } = alertaContext;
+
   //Crear State de Productos
   const [imagen, setImagen] = useState("");
+
   const [producto, setProducto] = useState({
     urlImagen: "",
     nombre: "",
@@ -43,12 +48,10 @@ export const AddProducto = () => {
   const subirImagen = async (e) => {
     // Obtener el archivo
     const file = e.target.files[0];
-    console.log("file.name");
-    console.log(file.name);
+    console.log(e.target.files[0])
     const keyImagen = uuidv4();
 
     // Crear referencia
-    //const ref = firebase.storage().ref("images/" + file.name);
     const ref = firebase.storage().ref("images/" + keyImagen);
 
     // Subir el archivo
@@ -60,15 +63,32 @@ export const AddProducto = () => {
       urlImagen: downloadURL,
     });
   };
+
   //Extraer los valores
   const { urlImagen, nombre, precio } = producto;
 
   const submitProducto = (e) => {
     e.preventDefault(); // para que no lo mande por el método Get y aparezca en el link
 
-    agregarProducto(producto);
+    agregarProductoBD(producto);
 
-    setProducto({ urlImagen, nombre: "", precio: "" });
+    mostrarAlerta(
+      `El Producto ${producto.nombre} fue agregado correctamente`,
+      ""
+    );
+    // agregarProducto(producto);
+
+    setProducto({
+      urlImagen: "",
+      nombre: "",
+      precio: "",
+    });
+
+    //Despues de 5 seg limpia la alarta
+    setTimeout(() => {
+      ocultarAlerta();
+    }, 6000);
+    // setProducto({ urlImagen, nombre: "", precio: "" });
   };
 
   return (
@@ -76,19 +96,19 @@ export const AddProducto = () => {
       <Layout />
       <div className="container">
         <General>
-          <form
-            
-            noValidate
-            autoComplete="off"
-            onSubmit={submitProducto}
-          >
+          <form noValidate autoComplete="off" onSubmit={submitProducto}>
+            {alerta ? (
+              <div class="alert alert-success" role="alert">
+                {alerta.msg}
+              </div>
+            ) : null}
             <h1 className="mb-4">Producto Nuevo</h1>
-            <div class="form-group mb-4">
-              <h4 for="formGroupExampleInput">Descripción</h4>
+            <div className="form-group mb-4">
+              <h4 htmlFor="formGroupExampleInput">Descripción</h4>
               <input
                 type="text"
                 name="nombre"
-                class="form-control"
+                className="form-control"
                 id="formGroupExampleInput"
                 value={nombre}
                 placeholder="Descripción"
@@ -96,10 +116,10 @@ export const AddProducto = () => {
               />
             </div>
 
-            <div class="form-group mb-4">
-              <h4 for="exampleFormControlInput1">Precio</h4>
+            <div className="form-group mb-4">
+              <h4 htmlFor="exampleFormControlInput1">Precio</h4>
               <input
-                class="form-control"
+                className="form-control"
                 id="exampleFormControlInput1"
                 name="precio"
                 label="Precio"
@@ -110,9 +130,9 @@ export const AddProducto = () => {
               />
             </div>
 
-            <div class="form-group mb-4">
-              <h4 for="exampleFormControlInput1">Agregar Imagen</h4>
-              <input
+            <div className="form-group mb-4">
+              <h4 htmlFor="exampleFormControlInput1">Agregar Imagen</h4>
+              {/* <input
                 id="imagen"
                 label="Imagen"
                 name="imagen"
@@ -121,7 +141,15 @@ export const AddProducto = () => {
                 value={imagen}
                 onChange={subirImagen}
                 //randomizeFilename
+              /> */}
+              <input type="file"
+                id="imagen" 
+                name="imagen"
+                accept="image/*"
+                onChange={subirImagen}
+                //value={imagen}
               />
+              {console.log('imagen')}
             </div>
 
             <div>

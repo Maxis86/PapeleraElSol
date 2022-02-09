@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useContext, useEffect} from "react";
 import Carrousel from "../components/Carrousel";
 import { Layout } from "../components/Layout";
 import imagen1 from '../imagen/Imagen 1.jpeg';
@@ -55,6 +55,7 @@ const Card = styled.div`
 `;
 
 export const Inicio = () => {
+
   return (
     <>
       <div>
@@ -82,20 +83,20 @@ export const Inicio = () => {
         </InfoParrafo2>
       </InfoParrafo1>
 
-      <div class="text-center">
-        <Imagene src={imagen1} class="rounded" alt="Imagen 1"/>
-        <Imagene src={imagen2} class="rounded" alt="Imagen 2"/>
-        <Imagene src={imagen3} class="rounded" alt="Imagen 3"/>
+      <div className="text-center">
+        <Imagene src={imagen1} className="rounded" alt="Imagen 1"/>
+        <Imagene src={imagen2} className="rounded" alt="Imagen 2"/>
+        <Imagene src={imagen3} className="rounded" alt="Imagen 3"/>
       </div>
 
       <InfoParrafo3>ELIGÍ, PAGÁ Y RECIBÍ TU PEDIDO SIN MOVERTE DE TU CASA.</InfoParrafo3>
 
-      <Card class="card" >
-        <Imagene class="card-img-top" src={imagen1} class="rounded" alt="Imagen 1"/>
-        <div class="card-body">
-          <h5 class="card-title">CB106 - Pack 10 Cajas de 24 X 21 X 6.5 CM DE CARTULINA BLANCA</h5>
-          <p class="card-text">$ 810,10</p>
-          <a href="#" class="btn btn-primary">Comprar</a>
+      <Card className="card" >
+        <Imagene className="card-img-top" src={imagen1} className="rounded" alt="Imagen 1"/>
+        <div className="card-body">
+          <h5 className="card-title">CB106 - Pack 10 Cajas de 24 X 21 X 6.5 CM DE CARTULINA BLANCA</h5>
+          <p className="card-text">$ 810,10</p>
+          <a href="#" className="btn btn-primary">Comprar</a>
         </div>
       </Card>
 
