@@ -7,7 +7,7 @@ export default (state, action ) => {
             return {
                 ...state,
                 productosCarrito: [...state.productosCarrito, action.payload],
-                totalCompra: [state.totalCompra + action.payload[0].totalProducto]
+                totalCompra: [parseFloat(state.totalCompra) + parseFloat(action.payload[0].totalProducto)]
             }
         default:
             return state;

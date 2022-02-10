@@ -9,7 +9,7 @@ const CarritoComprasState = props => {
     
     const initialState ={
         productosCarrito : [],
-        totalCompra: ""
+        totalCompra: 0
     }
 
     const [state, dispatch] = useReducer (carritoComprasReducer, initialState);
