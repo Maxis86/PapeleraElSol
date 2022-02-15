@@ -1,14 +1,70 @@
-import React from "react";
+import React, {useState} from "react";
 import { Layout } from "../components/Layout";
 import styled from "@emotion/styled";
 import Button from "@material-ui/core/Button";
 import Footer from "../components/Footer";
+
+import clienteAxios from "../config/axios";
 
 const Titulo = styled.h4`
   font-family: "PT Serif";
 `;
 
 export const Contacto = () => {
+
+  const [consulta, guardarConsulta] = useState({
+    nombre:"",
+    email: "",
+    telefono: "",
+    mensaje: ""
+  });
+
+  // extraer de usuario
+  const { nombre, email, telefono, mensaje } = consulta;
+
+  const onChange = (e) => {
+    guardarConsulta({
+      ...consulta,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    
+    const asunto = `Consulta Papelera el Sol - usuario: ${nombre}`;
+
+    // Validar que no haya campos vacios
+    if (nombre.trim() === "" || email.trim() === "" || mensaje.trim() === "") {
+      
+      return;
+    }
+
+    try {
+       await clienteAxios.post("/form", {
+        telefono,
+        email,
+        asunto,
+        mensaje,
+        nombre
+      });
+      console.log ( "hola que tal")
+      guardarConsulta({
+        nombre: "",
+        email: "",
+        telefono: "",
+        mensaje: ""
+      });
+
+ 
+    } catch (error) {
+      console.log("error");
+      console.log(error);
+    }
+  
+   
+  };
+
   return (
     <div>
       <Layout />
@@ -32,7 +88,7 @@ export const Contacto = () => {
             </div>
           </div>
           <div className="col-sm-6">
-            <form>
+            <form onSubmit={onSubmit}>
               <div className="form-group">
                 <label for="formGroupExampleInput">Nombre</label>
                 <input
@@ -40,6 +96,9 @@ export const Contacto = () => {
                   className="form-control"
                   id="formGroupExampleInput"
                   placeholder="Nombre"
+                  name="nombre"
+                  value={nombre}
+                  onChange={onChange}
                 />
               </div>
 
@@ -50,6 +109,9 @@ export const Contacto = () => {
                   className="form-control"
                   id="exampleFormControlInput1"
                   placeholder="nombre@ejemplo.com"
+                  name="email"
+                  value={email}
+                  onChange={onChange}
                 />
               </div>
 
@@ -60,6 +122,9 @@ export const Contacto = () => {
                   className="form-control"
                   id="formGroupExampleInput"
                   placeholder="Teléfono"
+                  name="telefono"
+                  value={telefono}
+                  onChange={onChange}
                 />
               </div>
 
@@ -69,6 +134,9 @@ export const Contacto = () => {
                   className="form-control"
                   id="exampleFormControlTextarea1"
                   rows="3"
+                  onChange={onChange}
+                  name="mensaje"
+                  value={mensaje}
                 ></textarea>
                 <Button
                   variant="contained"
@@ -76,18 +144,17 @@ export const Contacto = () => {
                   disableElevation
                   type="submit"
                   className="u-full-width button-primary mt-4"
+                  //onClick= {()=> enviarEmail()}
                 >
                   Enviar consulta
                 </Button>
               </div>
-
             </form>
           </div>
         </div>
       </div>
 
-      <Footer/>
+      <Footer />
     </div>
-    
   );
 };

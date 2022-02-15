@@ -4,13 +4,30 @@ import Footer from "../components/Footer";
 import { Carrito } from "../components/Carrito";
 import CarritoComprasContext from "../context/carritoCompras/carritoComprasContext";
 import { Button } from "reactstrap";
+import clienteAxios from "../config/axios";
+
 
 const CarritoComprasPage = () => {
   const carritoComprasContext = useContext(CarritoComprasContext);
-  const { productosCarrito, totalCompra } = carritoComprasContext;
+  const { productosCarrito, totalCompra, borrarProductoCarrito } =
+    carritoComprasContext;
 
   const keygen = require("keygen");
   const clave = keygen.hex(keygen.pequeño);
+
+  const enviarEmail = async() => {
+    if (productosCarrito !== []) {
+      try {
+        await clienteAxios.post("/productoCarrito", {
+          productosCarrito,
+          totalCompra,
+        });
+      } catch (error) {
+        console.log("error");
+        console.log(error);
+      }
+    }
+  };
 
   return (
     <>
@@ -39,9 +56,17 @@ const CarritoComprasPage = () => {
                 <td>{producCarrito[0].cantidad}</td>
                 <td>$ {producCarrito[0].totalProducto}</td>
                 <td scope="row">
-                  <a type="button" class="btn">
-                    <ion-icon name="trash-outline"></ion-icon>
-                  </a>
+                  <Button type="button" class="btn">
+                    <ion-icon
+                      onClick={() =>
+                        borrarProductoCarrito(
+                          producCarrito[0].clave,
+                          producCarrito[0].precio
+                        )
+                      }
+                      name="trash-outline"
+                    ></ion-icon>
+                  </Button>
                 </td>
               </tr>
             ))}
@@ -54,16 +79,13 @@ const CarritoComprasPage = () => {
               variant="contained"
               color="primary"
               disableElevation
-              type="submit"
+              onClick={() => enviarEmail()}
               className=" button-primary mt-4 d-flex justify-content-end "
             >
               Enviar email con pedido
             </Button>
-
-            
           </>
         )}
-        
       </div>
 
       <Footer />
