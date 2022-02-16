@@ -1,14 +1,15 @@
 import React, { useState, useContext } from "react";
-import firebase from "firebase/app";
-import "firebase/storage";
-
-import Button from "@material-ui/core/Button";
-import { Layout } from "../components/Layout";
-import { v4 as uuidv4 } from "uuid";
 import Footer from "../components/Footer";
-import styled from "@emotion/styled";
+import { Layout } from "../components/Layout";
+
 import ProductosContext from "../context/productos/productosContext";
 import AlertaContext from "../context/alertas/alertaContext";
+
+import firebase from "firebase/app";
+import "firebase/storage";
+import Button from "@material-ui/core/Button";
+import { v4 as uuidv4 } from "uuid";
+import styled from "@emotion/styled";
 
 const General = styled.div`
   /* font-size: 100%; */
@@ -23,13 +24,10 @@ const General = styled.div`
 
 export const AddProducto = () => {
   const productosContext = useContext(ProductosContext);
-  const { agregarProductoBD, obtenerProductos, productos } = productosContext;
+  const { agregarProductoBD } = productosContext;
 
   const alertaContext = useContext(AlertaContext);
   const { alerta, mostrarAlerta, ocultarAlerta } = alertaContext;
-
-  //Crear State de Productos
-  const [imagen, setImagen] = useState("");
 
   const [producto, setProducto] = useState({
     urlImagen: "",

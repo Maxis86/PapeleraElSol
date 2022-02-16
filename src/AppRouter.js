@@ -13,10 +13,10 @@ import { Login } from "./pages/Login.js";
 import { Contacto } from "./pages/Contacto";
 import { Inicio } from "./pages/Inicio";
 import CarritoComprasPage from "./pages/CarritoComprasPage"
+
 import AlertaState from "./context/alertas/alertaState";
 import ProductosState from "./context/productos/productosState.js";
 import CarritoComprasState from "./context/carritoCompras/carritoComprasState.js";
-
 
 export const AppRouter = () => {
   return (
