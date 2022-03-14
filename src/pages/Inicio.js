@@ -38,7 +38,7 @@ const InfoParrafo2 = styled.h3`
 const InfoParrafo3 = styled.h3`
   margin-top: 3rem;
   padding: 1rem;
-  color: #bf9270;
+  color: red;
   font-size: 150%;
   display: flex;
   justify-content: center;
