@@ -1,16 +1,14 @@
 import React, {useState, useContext, useEffect} from 'react';
+
 import { Card } from "../components/Card";
-import GridList from "@material-ui/core/GridList";
 import { Carrito } from "../components/Carrito";
-import { v4 as uuidv4 } from 'uuid';
 import db from "../Firebase/config";
 
 import ProductosContext from "../context/productos/productosContext";
 
+import GridList from "@material-ui/core/GridList";
+import { v4 as uuidv4 } from 'uuid';
 import styled from "@emotion/styled";
-
-import { css } from '@emotion/react';
-import { CarritoV2 } from "../components/CarritoV2";
 
 const ProductosCarritoCss = styled.div`
   padding: 5px;
@@ -23,7 +21,6 @@ const ProductosCss = styled.div`
 const CarritoCss = styled.div`
   padding: 5px;
 `;
-
 const ListadoProductos = () => {
  
     const productosContext = useContext(ProductosContext);
@@ -47,12 +44,6 @@ const ListadoProductos = () => {
         
         });
     }, []);
-
-    // useEffect(() => {
-        
-    //       obtenerProductos();
-        
-    // }, []);
 
     const keyg = uuidv4();
     const keyg2 = uuidv4();
@@ -109,9 +100,6 @@ const ListadoProductos = () => {
           eliminar={eliminar}
           total = {total}
         /> 
-        {/* <CarritoV2
-
-        />  */}
       </CarritoCss>
     ) : null }
   </ProductosCarritoCss>

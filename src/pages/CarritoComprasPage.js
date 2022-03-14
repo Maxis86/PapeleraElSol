@@ -1,19 +1,17 @@
 import React, { useContext } from "react";
+
 import { Layout } from "../components/Layout";
 import Footer from "../components/Footer";
-import { Carrito } from "../components/Carrito";
+
 import CarritoComprasContext from "../context/carritoCompras/carritoComprasContext";
+
 import { Button } from "reactstrap";
 import clienteAxios from "../config/axios";
 
-
 const CarritoComprasPage = () => {
-  const carritoComprasContext = useContext(CarritoComprasContext);
-  const { productosCarrito, totalCompra, borrarProductoCarrito } =
-    carritoComprasContext;
 
-  const keygen = require("keygen");
-  const clave = keygen.hex(keygen.pequeño);
+  const carritoComprasContext = useContext(CarritoComprasContext);
+  const { productosCarrito, totalCompra, borrarProductoCarrito } = carritoComprasContext;
 
   const enviarEmail = async() => {
     if (productosCarrito !== []) {
@@ -74,7 +72,7 @@ const CarritoComprasPage = () => {
         </table>
         {totalCompra && (
           <>
-            <h1 class="d-flex justify-content-end">Total: $ {totalCompra} </h1>
+            <h4 class="d-flex justify-content-end">Total: $ {totalCompra} </h4>
             <Button
               variant="contained"
               color="primary"

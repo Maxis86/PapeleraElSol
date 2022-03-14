@@ -1,4 +1,5 @@
 import React, { useState, useContext } from "react";
+
 import Footer from "../components/Footer";
 import { Layout } from "../components/Layout";
 
@@ -29,6 +30,8 @@ export const AddProducto = () => {
   const alertaContext = useContext(AlertaContext);
   const { alerta, mostrarAlerta, ocultarAlerta } = alertaContext;
 
+  const [bandera, setBandera] = useState(true);
+
   const [producto, setProducto] = useState({
     urlImagen: "",
     nombre: "",
@@ -44,9 +47,11 @@ export const AddProducto = () => {
   };
 
   const subirImagen = async (e) => {
+    setBandera(false);
+
     // Obtener el archivo
     const file = e.target.files[0];
-    console.log(e.target.files[0])
+    console.log(e.target.files[0]);
     const keyImagen = uuidv4();
 
     // Crear referencia
@@ -60,10 +65,14 @@ export const AddProducto = () => {
       ...producto,
       urlImagen: downloadURL,
     });
+
+    setTimeout(() => {
+      setBandera(true);
+    }, 3000);
   };
 
   //Extraer los valores
-  const { urlImagen, nombre, precio } = producto;
+  const { nombre, precio } = producto;
 
   const submitProducto = (e) => {
     e.preventDefault(); // para que no lo mande por el método Get y aparezca en el link
@@ -86,7 +95,6 @@ export const AddProducto = () => {
     setTimeout(() => {
       ocultarAlerta();
     }, 6000);
-    // setProducto({ urlImagen, nombre: "", precio: "" });
   };
 
   return (
@@ -116,50 +124,55 @@ export const AddProducto = () => {
 
             <div className="form-group mb-4">
               <h4 htmlFor="exampleFormControlInput1">Precio</h4>
-              <input
-                className="form-control"
-                id="exampleFormControlInput1"
-                name="precio"
-                label="Precio"
-                type="text"
-                placeholder="Precio"
-                value={precio}
-                onChange={actualizarState}
-              />
+              <div className="input-group mb-3">
+                <span class="input-group-text">$</span>
+                <input
+                  className="form-control"
+                  id="exampleFormControlInput1"
+                  name="precio"
+                  label="Precio"
+                  type="text"
+                  placeholder="Precio"
+                  value={precio}
+                  onChange={actualizarState}
+                />
+              </div>
             </div>
 
             <div className="form-group mb-4">
               <h4 htmlFor="exampleFormControlInput1">Agregar Imagen</h4>
-              {/* <input
-                id="imagen"
-                label="Imagen"
-                name="imagen"
+              <input
                 type="file"
-                accept="image/*"
-                value={imagen}
-                onChange={subirImagen}
-                //randomizeFilename
-              /> */}
-              <input type="file"
-                id="imagen" 
+                id="imagen"
                 name="imagen"
                 accept="image/*"
                 onChange={subirImagen}
                 //value={imagen}
               />
-              {console.log('imagen')}
+              {console.log("imagen")}
             </div>
 
             <div>
-              <Button
-                variant="contained"
-                color="primary"
-                disableElevation
-                type="submit"
-                className="u-full-width button-primary mt-4"
-              >
-                Agregar Producto
-              </Button>
+              {!bandera ? (
+                <Button class="btn btn-primary" type="button" disabled>
+                  <span
+                    class="spinner-grow spinner-grow-sm"
+                    role="status"
+                    aria-hidden="true"
+                  ></span>
+                  Cargando...
+                </Button>
+              ) : (
+                <Button
+                  variant="contained"
+                  color="primary"
+                  disableElevation
+                  type="submit"
+                  className="u-full-width button-primary mt-4"
+                >
+                  Agregar Producto
+                </Button>
+              )}
             </div>
           </form>
         </General>

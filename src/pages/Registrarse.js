@@ -1,13 +1,15 @@
 import React, { useState, useContext } from "react";
+import { NavLink } from "react-router-dom";
+import { useHistory } from "react-router-dom";
+
+import AlertaContext from "../context/alertas/alertaContext";
+
+import "./login.css";
+import "./spinner.css";
+
 import firebase from "firebase/app";
 import "firebase/auth";
-import { NavLink } from "react-router-dom";
-import "./login.css";
-import { Error } from "../components/Error";
-import { useHistory } from "react-router-dom";
 import styled from "@emotion/styled";
-import AlertaContext from "../context/alertas/alertaContext";
-import { Alert } from "reactstrap";
 
 const Titulo = styled.h2`
   margin: 0 auto;
@@ -24,6 +26,8 @@ export const Registrarse = () => {
   const { alerta, mostrarAlerta, ocultarAlerta } = alertaContext;
 
   const history = useHistory();
+
+  const [spinner, setSpinner] = useState(false);
 
   const [usuario, guardarUsuario] = useState({
     nombre: "",
@@ -54,7 +58,11 @@ export const Registrarse = () => {
       return;
     }
 
+    console.log("nombre + email + password");
+    console.log(nombre + email + password);
+
     ocultarAlerta();
+
     setError(false);
 
     // Pasarlo al action
@@ -77,8 +85,13 @@ export const Registrarse = () => {
         userCredential.user.updateProfile({
           displayName: nombre,
         });
-        return history.push("/");
-        // ...
+
+        setSpinner(true);
+
+        setTimeout(() => {
+          return history.push("/");
+          setSpinner(false);
+        }, 3000);
       })
       .catch((error) => {});
   };
@@ -86,7 +99,6 @@ export const Registrarse = () => {
   return (
     <div className="login">
       <div className="form-usuario">
-
         <div className="contenedor-form sombra-dark">
           <Titulo className="mb-5">Registrarse</Titulo>
           {error ? (
@@ -146,13 +158,20 @@ export const Registrarse = () => {
               Login
             </NavLink>
 
-            <div className="campo-form mt-4">
-              <input
-                type="submit"
-                className="btn btn-outline-primary btn-block"
-                value="Crear Cuenta"
-              />
-            </div>
+            {spinner ? (
+              <div class="spinner">
+                <div class="double-bounce1"></div>
+                <div class="double-bounce2"></div>
+              </div>
+            ) : (
+              <div className="campo-form mt-4">
+                <input
+                  type="submit"
+                  className="btn btn-outline-primary btn-block"
+                  value="Crear Cuenta"
+                />
+              </div>
+            )}
           </form>
         </div>
       </div>

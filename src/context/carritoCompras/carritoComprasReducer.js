@@ -10,13 +10,11 @@ export default (state, action ) => {
                 totalCompra: [parseFloat(state.totalCompra) + parseFloat(action.payload[0].totalProducto)]
             }
         case BORRAR_PRODUCTO_CARRITO:
-        return {
-            ...state,
-            //prueba:  (state.productosCarrito.filter(productoCarrito => productoCarrito[0].clave === action.payload))[0],
-            
-            productosCarrito: state.productosCarrito.filter(productoCarrito => productoCarrito[0].clave !== action.payload[0].produtoClave),
-            totalCompra: [parseFloat(state.totalCompra) - parseFloat(action.payload[0].precio)],
-        }
+            return {
+                ...state,
+                productosCarrito: state.productosCarrito.filter(productoCarrito => productoCarrito[0].clave !== action.payload[0].produtoClave),
+                totalCompra: [parseFloat(state.totalCompra) - parseFloat(action.payload[0].precio)],
+            }
         default:
             return state;
     }

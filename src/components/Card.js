@@ -1,16 +1,23 @@
 import React, { useState, useContext } from "react";
+
+import addcarrito from "../imagen/carrito-de-compras.png";
+import { editarPrecio, eliminarProducto } from "../helpers/ABMProductos";
+
+import CarritoComprasContext from "../context/carritoCompras/carritoComprasContext";
+import { useCounter } from "../Hooks/useCounter";
+
 import { makeStyles } from "@material-ui/core/styles";
 import CardActions from "@material-ui/core/CardActions";
 import Button from "@material-ui/core/Button";
-import { useCounter } from "../Hooks/useCounter";
-import addcarrito from "../imagen/carrito-de-compras.png";
-import { editarPrecio, eliminarProducto } from "../helpers/ABMProductos";
 import { CardContent } from "@material-ui/core";
-import CarritoComprasContext from "../context/carritoCompras/carritoComprasContext";
+import styled from "@emotion/styled";
 
-// const Distancia = styled.div`
-//   padding: 5px;
-// `;
+const Inputradio = styled.input`
+  margin: 0 1rem;
+  height: 2rem;
+  max-width: 50px;
+  /* margin-bottom: 20px; */
+`;
 
 const useStyles = makeStyles({
   root: {
@@ -25,12 +32,12 @@ const useStyles = makeStyles({
   colorEliminar: {
     color: "white",
     background: "red",
-    marginLeft: 5
+    marginLeft: 5,
   },
   colorEditar: {
     background: "#eeff41",
     color: "black",
-  }
+  },
 });
 
 export const Card = ({
@@ -41,17 +48,19 @@ export const Card = ({
   crearCarrito,
   usuario,
 }) => {
-
-   
   const carritoComprasContext = useContext(CarritoComprasContext);
   const { agregarAlCarrito, productosCarrito } = carritoComprasContext;
 
   const [nuevoPrecio, setNuevoPrecio] = useState("");
 
-  const { counter, increment, decrement } = useCounter(1);
+  const [counter, setCounter] = useState(1);
 
   const actualizarState = (e) => {
     setNuevoPrecio(e.target.value);
+  };
+
+  const actualizarCantidad = (e) => {
+    setCounter(e.target.value);
   };
 
   const actualizarPrecio = () => {
@@ -59,182 +68,84 @@ export const Card = ({
   };
 
   const addProducto = (nombre, precio, counter) => {
-    
-    const keygen = require('keygen'); 
-    const clave = keygen.hex( keygen.pequeño )
+    const keygen = require("keygen");
+    const clave = keygen.hex(keygen.pequeño);
 
-    const totalProducto = precio * counter
+    const totalProducto = precio * counter;
 
-    agregarAlCarrito(clave, nombre, precio, counter, totalProducto)
-
-    
-
-    // crearCarrito({
-    //   id: id,
-    //   descripcion: nombre,
-    //   cantidad: counter,
-    //   precio: precio,
-    //   importe: precio * counter,
-    // });
-    //crearCarrito({descripcion: nombre});
+    agregarAlCarrito(clave, nombre, precio, counter, totalProducto);
   };
 
   const classes = useStyles();
- 
+
   return (
     <>
+      {/* ////////////////////////////////// */}
       <div className="card-deck m-2">
-        <div className="card " style={{ width: 268, height: "auto" }}>
-          <img className="card-img-top" src={urlImagen} alt="Card image cap" />
+        <div class="card" style={{ width: 150, height: 'auto' }}>
+          <img
+            className="card-img-top"
+            src={urlImagen}
+            alt="Card image cap"
+            style={{ width: "auto", maxHeight: 100 }}
+          />
           <div className="card-body">
-            <h5 className="card-title">{nombre}</h5>
+            <h5 className="card-title d-flex justify-content-center">
+              {nombre}
+            </h5>
             <p className="card-text"> Precio: $ {precio}</p>
-          </div>
-          <div className="card-footer">
-            <CardActions>
-              <Button variant="contained" name="quitar" onClick={decrement}>
-                -
-              </Button>
 
-              <h2>{counter}</h2>
-
+            <p>
+              <small>Cantidad </small>
+              <input
+                style={{ width: 50, height: 20 }}
+                type="number"
+                id="counter"
+                name="counter"
+                value={counter}
+                onChange={actualizarCantidad}
+              />
+            </p>
+            <div className="d-flex justify-content-center">
               <Button
-                name="precio"
-                variant="contained"
-                color="primary"
-                onClick={increment}
+                style={{ width: "auto", height: "auto" }}
+                type="button"
+                class="btn btn-outline-primary"
+                onClick={() => addProducto(nombre, precio, counter)}
               >
-                +
+                Agregar
               </Button>
-              <Button name="add" onClick={() => addProducto(nombre, precio, counter)}>
-                <img src={addcarrito} alt="" />
+            </div>
+
+            {/* <div className="m-2">
+              <Button
+                className={classes.colorEditar}
+                startIcon={<ion-icon name="pencil-outline"></ion-icon>}
+                onClick={actualizarPrecio}
+              >
+                <input
+                  style={{ width: 60, height: 25 }}
+                  className="form-control"
+                  type="text"
+                  value={nuevoPrecio}
+                  onChange={actualizarState}
+                />
               </Button>
-            </CardActions>
-
-            <CardActions>
-              <form>
-                
-                  <div  className="d-flex justify-content-between">
-                   
-
-                    <Button
-                      className={classes.colorEditar}
-                      startIcon={<ion-icon name="pencil-outline"></ion-icon>}
-                      onClick={actualizarPrecio}
-                    >  <input
-                      className="form-control"
-                      placeholder="edit precio"
-                      type="text"
-                      value={nuevoPrecio}
-                      onChange={actualizarState}
-                    /></Button>
-
-                    <Button
-                      type="button"
-                      variant="contained"
-                      className={classes.colorEliminar}
-                      startIcon={<ion-icon name="trash-outline"></ion-icon>}
-                      onClick={() => eliminarProducto(id)}
-                    ></Button>
-                  </div>
-                
-              </form>
-            </CardActions>
-
-            <CardContent></CardContent>
+            </div>
+            <div>
+              <Button
+                type="button"
+                variant="contained"
+                className={classes.colorEliminar}
+                //startIcon={<ion-icon name="trash-outline"></ion-icon>}
+                onClick={() => eliminarProducto(id)}
+              >
+                Eliminar
+              </Button>
+            </div> */}
           </div>
         </div>
       </div>
     </>
   );
 };
-
-{
-  /* <Distancia>
-<Cards className={classes.root}>
-  <CardActionArea>
-    <CardMedia
-      className={classes.media}
-      image={urlImagen}
-      title={nombre}
-    />
-
-    <CardContent>
-      <Typography gutterBottom variant="h5" component="h2">
-        {nombre}
-      </Typography>
-      <Typography
-        variant="body2"
-        color="textSecondary"
-        component="p"
-        name="precio"
-      >
-        Precio: $ {precio}
-      </Typography>
-    </CardContent>
-  </CardActionArea>
-
-  <CardActions>
-    <Button variant="contained" name="quitar" onClick={decrement}>
-      -
-    </Button>
-
-    <h2>{counter}</h2>
-
-    <Button
-      name="precio"
-      variant="contained"
-      color="primary"
-      onClick={increment}
-    >
-      +
-    </Button>
-    <Button name="add" onClick={() => addProducto(nombre)}>
-      <img src={addcarrito} alt="" />
-    </Button>
-  </CardActions>
-
-  {usuario.email === "pepe@pepe.com" ? (
-    <>
-      <CardActions>
-        <form>
-          
-          <CardActions>
-            <TextField
-              label="Nuevo Precio"
-              type="text"
-              value={nuevoPrecio}
-              onChange={actualizarState}
-            />
-
-            <Button
-              className={classes.colorEditar}
-              startIcon={<EditIcon />}
-              onClick={actualizarPrecio}
-            >
-              Edit
-            </Button>
-          </CardActions>
-        </form>
-      </CardActions>
-
-      <CardContent>
-        <Button
-          type="button"
-          variant="contained"
-          className={classes.colorEliminar}
-          startIcon={<DeleteIcon />}
-          onClick={() => eliminarProducto(id)}
-        >
-          Delete
-        </Button>
-      </CardContent>
-    </>
-  ) : (
-    <p></p>
-  )}
-</Cards>
-</Distancia> 
-
-*/
-}

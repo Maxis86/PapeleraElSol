@@ -1,8 +1,11 @@
 import React, {useState} from "react";
-import styled from "@emotion/styled";
-import { Imagen } from './Imagen';
+
 import { NavLink } from 'react-router-dom';
+
+import { Imagen } from './Imagen';
 import firebase from 'firebase/app'
+
+import styled from "@emotion/styled";
 
 const EnlaceHome = styled.h1`
   font-size: 500%;
@@ -21,6 +24,7 @@ const Logeado = styled.p`
   display: flex;
   justify-content: center;
   font-family: "PT Serif", serif;
+  margin: 3px
 `;
 const Titulo = styled.div`
   margin: 0 auto;
@@ -64,7 +68,6 @@ export const Header = () => {
 
   return (
     <>
-      
       <Encabezado>
         
         <Titulo>
@@ -81,8 +84,6 @@ export const Header = () => {
                             <NavLink activeClassName="active" className="link-secondary nav-link" to='./registrarse'> Crear Cuenta</NavLink>
                             <NavLink activeClassName="active" className="link-secondary disabled nav-link" to='./login'>|</NavLink>
                             <NavLink activeClassName="active" className="link-secondary nav-link" to='./login'>Iniciar Sesión</NavLink>
-                            
-
                         </>
                     ) : (
                         <>
@@ -90,7 +91,7 @@ export const Header = () => {
 
                           <button 
                             type="button" 
-                            class="btn btn-primary btn-sm" 
+                            class="btn btn-light btn-sm m-3" 
                             onClick={cerrarSesion}
                           >
                           Cerrar Sesión

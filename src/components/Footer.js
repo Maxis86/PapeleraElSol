@@ -1,14 +1,13 @@
 import React from "react";
 
 import imagenPapelera from "../imagen/imagenPapelera.jpg";
+
 import styled from "@emotion/styled";
 
 const General = styled.div`
   max-width: 96%; 
   max-height: 25rem; 
   margin-top: 3rem;
-
-
 `;
 
 const Footer = () => {

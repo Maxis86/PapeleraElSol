@@ -1,15 +1,16 @@
-import React, {useContext, useEffect} from "react";
+import React from "react";
 import Carrousel from "../components/Carrousel";
 import { Layout } from "../components/Layout";
 import imagen1 from '../imagen/Imagen 1.jpeg';
 import imagen2 from '../imagen/Imagen 2.jpeg';
 import imagen3 from '../imagen/Imagen 3.jpeg';
-import styled from "@emotion/styled";
 import Footer from "../components/Footer";
 
+import styled from "@emotion/styled";
+
 const Imagene = styled.img`
-  max-width: 25rem; 
-  max-height: 25rem; 
+  max-width: 20rem; 
+  max-height: 20rem; 
   margin-top: 3rem;
   margin-left: 10px;
   border-style: solid;
@@ -18,13 +19,13 @@ const Imagene = styled.img`
 
 const InfoParrafo1 = styled.h3`
   
-  font-size: 500%;
+  /* font-size: 100%; */
   color: #bf9270;
   display: flex;
   text-align: center;
   font-family: "Merriweather", serif;
   justify-content: space-around;
-  margin-top: 3rem;
+  margin: 3rem;
 `;
 
 const InfoParrafo2 = styled.h3`
@@ -68,18 +69,18 @@ export const Inicio = () => {
       <InfoParrafo1>
         <InfoParrafo2>
           <ion-icon name="rocket-outline"></ion-icon>
-          <h3>
-            ENVIAMOS TU COMPRA <h5>Entregas a todo el País y al Exterior</h5>
-          </h3>
+          <h5>
+            ENVIAMOS TU COMPRA <b>Entregas a todo el País y al Exterior</b>
+          </h5>
         </InfoParrafo2>
 
         <h3>|</h3>
 
         <InfoParrafo2>
           <ion-icon name="lock-closed-outline"></ion-icon>
-          <h3>
-          COMPRÁ CON SEGURIDAD <h5>Tus datos siempre protegidos</h5>
-          </h3>
+          <h5>
+          COMPRÁ CON SEGURIDAD <b>Tus datos siempre protegidos</b>
+          </h5>
         </InfoParrafo2>
       </InfoParrafo1>
 
@@ -100,8 +101,9 @@ export const Inicio = () => {
         </div>
       </Card>
 
-      <Footer/>
+      
       </div>
+      <Footer/>
     </>
   );
 };

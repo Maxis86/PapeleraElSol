@@ -1,11 +1,14 @@
 import React, { useReducer } from "react";
+
 import productosContext from "./productosContext";
 import productosReducer from "./productosReducer";
+
 import db from "../../Firebase/config";
 
 import { AGREGAR_PRODUCTOBD, OBTENER_PRODUCTOSBD } from "../../types";
 
 const ProductosState = (props) => {
+  
   const initialState = {
     productos: [],
   };

@@ -1,5 +1,7 @@
 import React from 'react'
+
 import imagen from '../imagen/imagenPapelera.jpg';
+
 import styled from "@emotion/styled";
 
 const Imagene = styled.img`

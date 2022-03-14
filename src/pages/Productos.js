@@ -6,7 +6,6 @@ import { Layout } from "../components/Layout";
 
 import firebase from 'firebase/app'
 
-
 export const Productos = () => {
 
   const [usuario, guardarUsuario] = useState({mail:""});
@@ -31,30 +30,3 @@ export const Productos = () => {
     </>
   );
 };
-
-
-
-
-
-
-  // useEffect(() => {
-    
-  // }, []);
-  
-
-  // useEffect(() => {
-  //   db.collection("productos").onSnapshot((snap) => {
-  //     // se actualiza cada vez que hay un cambio
-
-  //     const productos = [];
-
-  //     snap.forEach((snapHijo) => {
-  //       productos.push({
-  //         id: snapHijo.id,
-  //         ...snapHijo.data(),
-  //       });
-  //     });
-  //     setProductoStock(productos);
-      
-  //   });
-  // }, []);

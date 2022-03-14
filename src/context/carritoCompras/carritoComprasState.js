@@ -1,8 +1,9 @@
 import React, { useReducer } from "react";
 
-import { AGREGAR_CARRITO, BORRAR_PRODUCTO_CARRITO } from "../../types";
 import carritoComprasReducer from "./carritoComprasReducer";
 import carritoComprasContext from "./carritoComprasContext";
+
+import { AGREGAR_CARRITO, BORRAR_PRODUCTO_CARRITO } from "../../types";
 
 const CarritoComprasState = (props) => {
   const initialState = {
